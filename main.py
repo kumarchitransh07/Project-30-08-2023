@@ -1,86 +1,86 @@
-#Importing of Required libraries
 import os
 import time
 
-#Creation of required classes
 class Company:
     def __init__(self, name):
-        self.c_name = name
+        self.company_name = name
 
 class Employee(Company):
     def __init__(self):
         super().__init__('')
-        self.e_name = ''
-        self.e_rollno = 0
-        self.e_dept = ''
-        self.e_desg = ''
-        self.e_sal = 0
-        self.e = {}
+        self.employee_name = ''
+        self.employee_rollno = 0
+        self.employee_department = ''
+        self.employee_designation = ''
+        self.employee_salary = 0
+        self.employee_data = {}
 
-    def EnterEmployee(self, name, cname, rollno, dept, desg, hrs):
+    def accept_employee(self, name, company_name, rollno, department, designation, hours):
         if name.isdigit():
-            print("Validation Error: Employee name cannot be an integer.")
+            print("Validation Error: Employee name cannot be a number.")
             return
         if not name.isalpha():
-            print("Validation Error: Employee name must contain only alphabetic characters.")
+            print("Validation Error: Employee name must consist of only letters.")
             return
 
-        if not cname.isalpha():
-            print("Validation Error: Company name must contain only alphabetic characters.")
+        if not company_name.isalpha():
+            print("Validation Error: Company name must consist of only letters.")
             return
-        if not dept.isalpha():
-            print("Validation Error: Department must contain only alphabetic characters.")
+        if not department.isalpha():
+            print("Validation Error: Department name must consist of only letters.")
             return
-        if not desg.isalpha():
-            print("Validation Error: Designation must contain only alphabetic characters.")
+        if not designation.isalpha():
+            print("Validation Error: Designation must consist of only letters.")
             return
 
         if not isinstance(rollno, int):
             print("Validation Error: Roll number must be an integer.")
             return
-        if not isinstance(hrs, int):
+        if not isinstance(hours, int):
             print("Validation Error: Working hours must be an integer.")
             return
 
-        self.e_name = name
-        self.c_name = cname
-        self.e_rollno = rollno
-        self.e_dept = dept
-        self.e_desg = desg
-        self.e_hrs = hrs
-        self.CalculateSal(hrs)
-        self.e[self.e_name] = [self.e_rollno, self.c_name, self.e_dept, self.e_desg, self.e_sal, self.e_hrs]
+        self.employee_name = name
+        self.company_name = company_name
+        self.employee_rollno = rollno
+        self.employee_department = department
+        self.employee_designation = designation
+        self.employee_hours = hours
+        self.calculate_salary(hours)
+        self.employee_data[self.employee_name] = [self.employee_rollno, self.company_name, self.employee_department, self.employee_designation, self.employee_salary, self.employee_hours]
 
-    def Display(self):
-        if not self.e:
-            print("No employee found! :((.")
+    def display_employee(self):
+        if not self.employee_data:
+            print("No employees found in the database.")
         else:
             print("\nEmployee Details:")
-            for name, data in self.e.items():
-                print("Enter the name of employee:", name)
-                print("Enter Employee ID.:", data[0])
-                print("Organisation:", data[1])
-                print("Dept:", data[2])
-                print("Job Title:", data[3])
-                print("Wage:", data[4])
-                print("Shift Hours:", data[5])
+            for name, data in self.employee_data.items():
+                print("Employee Name:", name)
+                print("Employee ID:", data[0])
+                print("Company:", data[1])
+                print("Department:", data[2])
+                print("Designation:", data[3])
+                print("Salary:", data[4])
+                print("Working Hours:", data[5])
                 print()
 
-    def Search(self, name):
-        if name in self.e:
-            data = self.e[name]
-            print("Given Employee's ID is", data[0])
-            print("Given Employee works for Organisation named", data[1])
-            print("Given Employee works in Department named", data[2])
-            print("Given Employee's Job Title is", data[3])
-            print("Given Employee's monthly salary is Rs", data[4])
-            print("Given Employee's monthly shift hours are", data[5])
+    def search_employee(self, name):
+        if name in self.employee_data:
+            data = self.employee_data[name]
+            print("Employee ID: ", data[0])
+            print("Employee Organisation:", data[1])
+            print("Employee Department:", data[2])
+            print("Employee Job Title:", data[3])
+            print("Employee Salary: $", data[4])
+            print("Employee Shift Hours:", data[5])
         else:
-            print("Given Employee does not exist as per Company's record")
+            print("Employee not found in the company records")
 
-    def CalculateSal(self, hrs):
-        self.e_sal = 10000 * hrs
-e = Employee()
+    def calculate_salary(self, hours):
+        self.employee_salary = 10000 * hours
+
+employee_object = Employee()
+
 while True:
     print("\nMenu:")
     print("1. Add Employee")
@@ -93,63 +93,63 @@ while True:
     if choice == '1':
         name = input("Employee Name: ")
         if name.isdigit():
-            print("Employee name cannot be an integer.")
+            print("Employee name cannot be a number.")
             time.sleep(4)
             os.system('cls')
             continue
 
-        cname = input("Organisation: ")
-        if not cname.isalpha():
-            print(" Company name must contain only alphabetic characters.")
+        company_name = input("Organisation: ")
+        if not company_name.isalpha():
+            print("Company name must consist of only letters.")
             time.sleep(4)
             os.system('cls')
             continue
-        
+
         try:
             rollno = int(input("Employee ID: "))
         except ValueError:
-            print(" Roll number must be an integer.")
+            print("Roll number must be an integer.")
             time.sleep(4)
             os.system('cls')
             continue
-        
-        dept = input("Department: ")
-        if not dept.isalpha():
-            print("Department must contain only alphabetic characters.")
+
+        department = input("Department: ")
+        if not department.isalpha():
+            print("Department name must consist of only letters.")
             time.sleep(4)
             os.system('cls')
             continue
-        
-        desg = input("Job Title: ")
-        if not desg.isalpha():
-            print("Designation must contain only alphabetic characters.")
+
+        designation = input("Job Title: ")
+        if not designation.isalpha():
+            print("Designation must consist of only letters.")
             time.sleep(4)
             os.system('cls')
             continue
-        
+
         try:
-            hrs = int(input("Enter Working Hours: "))
+            hours = int(input("Shift Hours: "))
         except ValueError:
             print("Working hours must be an integer.")
             time.sleep(4)
             os.system('cls')
             continue
-        
-        e.EnterEmployee(name, cname, rollno, dept, desg, hrs)
+
+        employee_object.accept_employee(name, company_name, rollno, department, designation, hours)
         print("Employee added successfully!")
         time.sleep(4)
-        os.system('cls')  # For Windows
+        os.system('cls')
 
     elif choice == '2':
-        name = input("Enter Employee Name: ")
-        e.Search(name)
+        name = input("Employee Name: ")
+        employee_object.search_employee(name)
         time.sleep(4)
-        os.system('cls')  # For Windows
+        os.system('cls')
 
     elif choice == '3':
-        e.Display()
+        employee_object.display_employee()
         time.sleep(4)
-        os.system('cls')  # For Windows
+        os.system('cls')
 
     elif choice == '4':
         print("Exiting the program.")
@@ -160,4 +160,4 @@ while True:
     else:
         print("Invalid choice! Please select a valid option.")
         time.sleep(4)
-        os.system('cls')  # For Windows
+        os.system('cls')
