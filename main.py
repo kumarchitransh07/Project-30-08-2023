@@ -1,5 +1,8 @@
+#Importing of Required libraries
 import os
 import time
+
+#Creation of required classes
 class Company:
     def __init__(self, name):
         self.c_name = name
@@ -14,7 +17,7 @@ class Employee(Company):
         self.e_sal = 0
         self.e = {}
 
-    def Accept(self, name, cname, rollno, dept, desg, hrs):
+    def EnterEmployee(self, name, cname, rollno, dept, desg, hrs):
         if name.isdigit():
             print("Validation Error: Employee name cannot be an integer.")
             return
@@ -50,28 +53,28 @@ class Employee(Company):
 
     def Display(self):
         if not self.e:
-            print("No employees in the database.")
+            print("No employee found! :((.")
         else:
             print("\nEmployee Details:")
             for name, data in self.e.items():
-                print("Employee Name:", name)
-                print("Roll No.:", data[0])
-                print("Company:", data[1])
-                print("Department:", data[2])
-                print("Designation:", data[3])
-                print("Salary:", data[4])
-                print("Working Hours:", data[5])
+                print("Enter the name of employee:", name)
+                print("Enter Employee ID.:", data[0])
+                print("Organisation:", data[1])
+                print("Dept:", data[2])
+                print("Job Title:", data[3])
+                print("Wage:", data[4])
+                print("Shift Hours:", data[5])
                 print()
 
     def Search(self, name):
         if name in self.e:
             data = self.e[name]
-            print("Given Employee's Roll No. is", data[0])
-            print("Given Employee works for Company named", data[1])
+            print("Given Employee's ID is", data[0])
+            print("Given Employee works for Organisation named", data[1])
             print("Given Employee works in Department named", data[2])
-            print("Given Employee's designation is", data[3])
+            print("Given Employee's Job Title is", data[3])
             print("Given Employee's monthly salary is Rs", data[4])
-            print("Given Employee's monthly working hours are", data[5])
+            print("Given Employee's monthly shift hours are", data[5])
         else:
             print("Given Employee does not exist as per Company's record")
 
@@ -88,14 +91,14 @@ while True:
     choice = input("Enter your choice: ")
 
     if choice == '1':
-        name = input("Enter Employee Name: ")
+        name = input("Employee Name: ")
         if name.isdigit():
             print("Employee name cannot be an integer.")
             time.sleep(4)
             os.system('cls')
             continue
 
-        cname = input("Enter Company Name: ")
+        cname = input("Organisation: ")
         if not cname.isalpha():
             print(" Company name must contain only alphabetic characters.")
             time.sleep(4)
@@ -103,21 +106,21 @@ while True:
             continue
         
         try:
-            rollno = int(input("Enter Roll Number: "))
+            rollno = int(input("Employee ID: "))
         except ValueError:
             print(" Roll number must be an integer.")
             time.sleep(4)
             os.system('cls')
             continue
         
-        dept = input("Enter Department: ")
+        dept = input("Department: ")
         if not dept.isalpha():
             print("Department must contain only alphabetic characters.")
             time.sleep(4)
             os.system('cls')
             continue
         
-        desg = input("Enter Designation: ")
+        desg = input("Job Title: ")
         if not desg.isalpha():
             print("Designation must contain only alphabetic characters.")
             time.sleep(4)
@@ -132,7 +135,7 @@ while True:
             os.system('cls')
             continue
         
-        e.Accept(name, cname, rollno, dept, desg, hrs)
+        e.EnterEmployee(name, cname, rollno, dept, desg, hrs)
         print("Employee added successfully!")
         time.sleep(4)
         os.system('cls')  # For Windows
