@@ -9,13 +9,13 @@ class Employee(Company):
     def __init__(self):
         super().__init__('')
         self.employee_name = ''
-        self.employee_rollno = 0
+        self.employee_id = 0
         self.employee_department = ''
         self.employee_designation = ''
         self.employee_salary = 0
         self.employee_data = {}
 
-    def accept_employee(self, name, company_name, rollno, department, designation, hours):
+    def accept_employee(self, name, company_name, id, department, designation, hours):
         if name.isdigit():
             print("Validation Error: Employee name cannot be a number.")
             return
@@ -33,7 +33,7 @@ class Employee(Company):
             print("Validation Error: Designation must consist of only letters.")
             return
 
-        if not isinstance(rollno, int):
+        if not isinstance(id, int):
             print("Validation Error: Roll number must be an integer.")
             return
         if not isinstance(hours, int):
@@ -42,12 +42,12 @@ class Employee(Company):
 
         self.employee_name = name
         self.company_name = company_name
-        self.employee_rollno = rollno
+        self.employee_id = id
         self.employee_department = department
         self.employee_designation = designation
         self.employee_hours = hours
         self.calculate_salary(hours)
-        self.employee_data[self.employee_name] = [self.employee_rollno, self.company_name, self.employee_department, self.employee_designation, self.employee_salary, self.employee_hours]
+        self.employee_data[self.employee_id] = [self.employee_name, self.company_name, self.employee_department, self.employee_designation, self.employee_salary, self.employee_hours]
 
     def display_employee(self):
         if not self.employee_data:
@@ -64,9 +64,9 @@ class Employee(Company):
                 print("Working Hours:", data[5])
                 print()
 
-    def search_employee(self, name):
-        if name in self.employee_data:
-            data = self.employee_data[name]
+    def search_employee(self, id):
+        if id in self.employee_data:
+            data = self.employee_data[id]
             print("Employee ID: ", data[0])
             print("Employee Organisation:", data[1])
             print("Employee Department:", data[2])
@@ -77,7 +77,7 @@ class Employee(Company):
             print("Employee not found in the company records")
 
     def calculate_salary(self, hours):
-        self.employee_salary = 10000 * hours
+        self.employee_salary = 9500 * hours
 
 employee_object = Employee()
 
@@ -106,7 +106,7 @@ while True:
             continue
 
         try:
-            rollno = int(input("Employee ID: "))
+            id = int(input("Employee ID: "))
         except ValueError:
             print("Roll number must be an integer.")
             time.sleep(4)
@@ -135,14 +135,14 @@ while True:
             os.system('cls')
             continue
 
-        employee_object.accept_employee(name, company_name, rollno, department, designation, hours)
+        employee_object.accept_employee(name, company_name, id, department, designation, hours)
         print("Employee added successfully!")
         time.sleep(4)
         os.system('cls')
 
     elif choice == '2':
-        name = input("Employee Name: ")
-        employee_object.search_employee(name)
+        name = input("Employee ID: ")
+        employee_object.search_employee(id)
         time.sleep(4)
         os.system('cls')
 
